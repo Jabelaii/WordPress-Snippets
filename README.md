@@ -1,48 +1,82 @@
 # WordPress-Snippets
 Collection of custom WordPress code snippets for themes, plugins, and performance optimization.
 
-Tiap file berdiri sendiri, tinggal copy ke `functions.php` theme atau ke plugin seperti Code Snippets.
+Tiap file berdiri sendiri, tinggal copy ke `functions.php` theme atau ke plugin seperti Code Snippets. Semua pakai prefix `wps_`, header tiap file ada penjelasan + cara pakainya.
 
 ## admin/
-- `clean-dashboard.php` – buang widget dashboard bawaan dan welcome panel
-- `custom-admin-footer.php` – ganti teks footer wp-admin
-- `disable-comments.php` – matiin komentar total (frontend + admin menu)
-- `duplicate-post.php` – link "Duplicate" di list post/page/produk, meta & taxonomy ikut
-- `hide-update-notices.php` – sembunyikan notif update dari user non-admin
-- `login-logo.php` – logo site di halaman login (ambil dari Customizer)
-- `remove-image-title-attribute.php` – hapus attribute `title` di gambar attachment
+- `clean-dashboard.php` – Bersihin dashboard wp-admin: buang widget bawaan + welcome panel
+- `custom-admin-color.php` – Warna admin bar beda per environment biar ga salah edit di production
+- `custom-admin-footer.php` – Ganti teks footer di wp-admin ("Thank you for creating with WordPress")
+- `disable-comments.php` – Matiin komentar di seluruh site
+- `duplicate-post.php` – Duplicate post/page/produk dari list admin tanpa plugin
+- `featured-image-column.php` – Kolom thumbnail di list post & page di admin
+- `hide-update-notices.php` – Sembunyikan notifikasi update (core, plugin, theme) dari user non-admin
+- `login-logo.php` – Login page: ganti logo WP dengan logo site (Customizer > Site Identity),
+- `post-state-label.php` – Label di list page buat halaman penting (kayak "Front Page" bawaan WP)
+- `remove-image-title-attribute.php` – Remove title attribute from attachment images
+- `remove-menus-for-editor.php` – Sembunyikan menu yang ga perlu dari role selain administrator
 
 ## editor/
-- `disable-gutenberg.php` – classic editor tanpa plugin, sekalian dequeue CSS block
+- `disable-gutenberg.php` – Disable Gutenberg, balik ke classic editor tanpa plugin
 
 ## media/
-- `convert-upload-to-webp.php` – auto convert JPG/PNG ke WebP + resize saat upload. Quality & ukuran max bisa diatur lewat filter, lihat komentar di file.
-- `limit-uploads.php` – batas ukuran gambar 2MB, izinin webp, svg cuma buat admin
+- `convert-upload-to-webp.php` – Convert JPG/PNG jadi WebP saat upload, sekalian resize kalau kegedean
+- `limit-uploads.php` – Batasi upload: maksimal ukuran file dan tipe yang boleh
 
 ## performance/
-- `clean-head.php` – buang emoji script, rsd/wlw/shortlink, versi WP dari `<head>` dan query string asset
-- `limit-heartbeat.php` – heartbeat off di frontend/dashboard, 60s di editor
-- `limit-revisions.php` – max 5 revisi, autosave tiap 2 menit
+- `clean-head.php` – Buang hal-hal yang ga perlu dari <head>: emoji script, RSD/WLW link,
+- `dashicons-guests.php` – Dashicons (~45KB CSS) cuma kepake di admin bar. Buat yang belum login
+- `defer-scripts.php` – Tambah `defer` ke semua script frontend kecuali jQuery dan yang di-skip
+- `disable-embeds.php` – Matiin oEmbed (wp-embed.min.js) & jQuery Migrate
+- `disable-wp-cron.php` – WP-Cron jalan tiap ada pengunjung, bikin request pertama lambat
+- `limit-heartbeat.php` – Heartbeat API: matiin di frontend & dashboard, di editor kasih interval 60s
+- `limit-revisions.php` – Batasi revisi post jadi 5 dan autosave jadi 2 menit
 
 ## security/
-- `block-user-enumeration.php` – tutup `/wp-json/wp/v2/users` dan `?author=N`, pesan login generik
-- `disable-file-editor.php` – matiin theme/plugin file editor di wp-admin
-- `disable-xmlrpc.php` – matiin xmlrpc.php + header X-Pingback
+- `block-user-enumeration.php` – Tutup REST API user enumeration (/wp-json/wp/v2/users) dan ?author=N
+- `block-wp-admin-non-admin.php` – Customer/subscriber ga bisa buka wp-admin, dilempar ke home
+- `disable-file-editor.php` – Matiin editor file theme/plugin di wp-admin (Appearance > Theme File Editor)
+- `disable-rest-for-guests.php` – REST API cuma buat yang login. Hati-hati: Contact Form 7, Woo Blocks,
+- `disable-xmlrpc.php` – Matiin XML-RPC (xmlrpc.php). Sering jadi target brute force,
+- `limit-login-attempts.php` – Limit login attempts tanpa plugin. 5x salah dari IP yang sama = blok 15 menit
+- `security-headers.php` – Header keamanan dasar. Idealnya di nginx/htaccess, tapi kalau ga punya
 
 ## woocommerce/
-- `checkout-fields.php` – buang company/address 2, no HP wajib & jadi "No. WhatsApp", default negara ID
-- `disable-assets-non-shop.php` – buang cart fragments & CSS/JS Woo di halaman non-toko
-- `free-shipping-notice.php` – "belanja Rp X lagi buat gratis ongkir" di cart/checkout
-- `min-order-amount.php` – minimum belanja sebelum checkout
-- `order-number-prefix.php` – nomor order jadi INV-000123
-- `sale-badge-percent.php` – badge Sale! jadi -25%
-- `skip-cart-to-checkout.php` – add to cart langsung ke checkout
+- `add-to-cart-text.php` – ganti teks tombol Add to cart
+- `checkout-fields.php` – rapihin field checkout
+- `disable-assets-non-shop.php` – matiin cart fragments (wc-ajax=get_refreshed_fragments)
+- `disable-reviews.php` – matiin review produk total
+- `empty-cart-button.php` – tombol "Kosongkan Keranjang" di halaman cart
+- `free-shipping-notice.php` – notice "Belanja Rp X lagi buat gratis ongkir" di cart & checkout
+- `hide-coupon-field.php` – sembunyikan form kupon di cart & checkout
+- `hide-price-for-guests.php` – harga & tombol beli cuma buat yang login (B2B / reseller)
+- `hide-shipping-when-free.php` – kalau gratis ongkir udah kena, sembunyikan metode lain
+- `login-redirect-my-account.php` – customer yang login dari wp-login.php dilempar ke My Account,
+- `min-order-amount.php` – minimum belanja sebelum bisa checkout
+- `order-number-prefix.php` – nomor order pakai prefix + padding, misal INV-000123
+- `order-status-whatsapp-link.php` – link WhatsApp ke customer di halaman detail order admin,
+- `out-of-stock-last.php` – produk habis ditaruh paling bawah di shop & kategori
+- `product-custom-field.php` – field tambahan di produk (tab General) yang tampil di frontend
+- `product-tabs.php` – atur tab di halaman produk
+- `products-per-page.php` – jumlah produk per halaman & kolom di shop
+- `sale-badge-percent.php` – badge "Sale!" diganti jadi persen diskon, misal "-25%"
+- `skip-cart-to-checkout.php` – redirect ke checkout langsung setelah add to cart,
+- `sku-in-loop.php` – tampilin SKU di list produk & di cart
+- `validate-phone-id.php` – validasi nomor HP Indonesia di checkout
 - `whatsapp-button.php` – tombol "Tanya via WhatsApp" di halaman produk
 
 ## misc/
-- `disable-update-emails.php` – matiin email auto-update & password change
-- `maintenance-mode.php` – 503 buat pengunjung, admin tetap bisa akses
-- `reading-time.php` – `[reading_time]` / `wps_reading_time()`
-- `year-shortcode.php` – `[year]` buat copyright footer
+- `allow-shortcodes-in-widgets.php` – Shortcode jalan di widget text, excerpt, dan menu item label
+- `body-class-extras.php` – Tambah class di <body>: slug halaman, nama browser, login/guest
+- `custom-404-log.php` – Catat URL yang kena 404 ke option, lihat di Tools > 404 Log
+- `disable-update-emails.php` – Matiin email notifikasi auto-update (core, plugin, theme) dan
+- `excerpt-length.php` – Panjang excerpt & teks "read more"
+- `google-analytics.php` – Pasang GA4 / GTM tanpa plugin. Isi salah satu, admin yang login ga ditrack
+- `maintenance-mode.php` – Maintenance mode sederhana tanpa plugin
+- `phone-link-shortcode.php` – [tel number="081234567890"] -> link tel: yang bisa diklik di HP
+- `reading-time.php` – Estimasi waktu baca: [reading_time] atau wps_reading_time() di template
+- `register-cpt.php` – Template register custom post type + taxonomy. Ganti 'portfolio' & label
+- `search-include-cpt.php` – Hasil search include custom post type & produk, exclude page
+- `year-shortcode.php` – Shortcode [year] buat copyright di footer biar ga perlu diedit tiap tahun
 
-Minimum PHP 7.4, WP 5.8 (untuk WebP).
+Minimum PHP 7.4, WP 5.8 (untuk WebP). Dicek `php -l`, tapi test di staging dulu sebelum production.
