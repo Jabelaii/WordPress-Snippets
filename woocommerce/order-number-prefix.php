@@ -1,7 +1,8 @@
 <?php
 /**
  * WooCommerce: nomor order pakai prefix + padding, misal INV-000123.
- * Cuma tampilan, ID asli di database ga berubah.
+ * Klien minta nomor order keliatan "rapi" di invoice. Cuma tampilan,
+ * get_id() tetap angka asli jadi aman buat plugin lain.
  */
 
 add_filter('woocommerce_order_number', function ($order_id, $order) {

@@ -1,6 +1,8 @@
 <?php
 /**
  * WooCommerce: jumlah produk per halaman & kolom di shop.
+ * Setting Customizer cuma kasih jumlah baris, bukan angka pasti.
+ * 24 bisa dibagi 2, 3, 4 kolom jadi ga ada baris bolong di bawah.
  */
 
 add_filter('loop_shop_per_page', fn() => 24, 20);

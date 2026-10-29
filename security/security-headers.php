@@ -1,7 +1,8 @@
 <?php
 /**
  * Header keamanan dasar. Idealnya di nginx/htaccess, tapi kalau ga punya
- * akses server, ini cukup.
+ * akses server, ini cukup. Cek hasilnya di securityheaders.com.
+ * CSP sengaja ga dimasukin, itu harus per site dan gampang ngerusak.
  */
 
 add_action('send_headers', function () {

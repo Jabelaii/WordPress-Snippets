@@ -1,6 +1,7 @@
 <?php
 /**
  * WooCommerce: ganti teks tombol Add to cart.
+ * "Add to cart" kedengeran kaku buat toko lokal. Beda per tipe produk.
  */
 
 add_filter('woocommerce_product_single_add_to_cart_text', fn() => 'Beli Sekarang');

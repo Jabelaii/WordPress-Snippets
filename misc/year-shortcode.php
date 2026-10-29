@@ -1,6 +1,7 @@
 <?php
 /**
  * Shortcode [year] buat copyright di footer biar ga perlu diedit tiap tahun.
+ * Tiap Januari ada aja klien yang nanya kenapa footer masih tahun lalu.
  * Pakai: &copy; [year] Nama Toko
  */
 
